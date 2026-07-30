@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Edumuvi Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef4ff;
+}
+
+header{
+background:#0b5ed7;
+color:white;
+padding:20px;
+text-align:center;
+font-size:30px;
+font-weight:bold;
+}
+
+.welcome{
+margin:20px;
+background:white;
+padding:20px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:15px;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 10px rgba(0,0,0,.2);
+transition:.3s;
+}
+
+.card:hover{
+background:#d9e9ff;
+transform:scale(1.03);
+}
+
+.logout{
+padding:20px;
+}
+
+.logout button{
+width:100%;
+padding:15px;
+background:red;
+color:white;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+EDUMUVI
+
+</header>
+
+<div class="welcome">
+
+<h2 id="studentName">
+
+Welcome Student
+
+</h2>
+
+<p>
+
+What would you like to learn today?
+
+</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card" onclick="location.href='subjects.html'">
+📚<br><br>
+Subjects
+</div>
+
+<div class="card" onclick="location.href='lesson.html'">
+🤖<br><br>
+AI Lesson
+</div>
+
+<div class="card" onclick="location.href='music.html'">
+🎵<br><br>
+AI Music
+</div>
+
+<div class="card" onclick="location.href='video.html'">
+🎬<br><br>
+Videos
+</div>
+
+<div class="card" onclick="location.href='quiz.html'">
+📝<br><br>
+Quiz
+</div>
+
+<div class="card" onclick="location.href='progress.html'">
+📊<br><br>
+Progress
+</div>
+
+<div class="card" onclick="location.href='certificate.html'">
+🏆<br><br>
+Certificate
+</div>
+
+<div class="card" onclick="location.href='profile.html'">
+👤<br><br>
+Edit Profile
+</div>
+
+</div>
+
+<div class="logout">
+
+<button onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCbLqH80ErVa474ToHzL7mPNXHbgTgpTNs",
+authDomain:"edumuvi-ec332.firebaseapp.com",
+projectId:"edumuvi-ec332",
+storageBucket:"edumuvi-ec332.firebasestorage.app",
+messagingSenderId:"509806032551",
+appId:"1:509806032551:web:96695c8deae4d1311b8d82"
+
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(!user){
+
+window.location.href="login.html";
+return;
+
+}
+
+try{
+
+const studentDoc = await getDoc(doc(db,"students",user.uid));
+
+if(studentDoc.exists()){
+
+const student = studentDoc.data();
+
+document.getElementById("studentName").innerHTML =
+"Welcome, " + student.fullname;
+
+// Save latest profile locally
+localStorage.setItem("fullname",student.fullname);
+localStorage.setItem("school",student.school);
+localStorage.setItem("level",student.level);
+localStorage.setItem("department",student.department);
+localStorage.setItem("email",student.email);
+
+console.log("Latest profile loaded.");
+
+}else{
+
+alert("Student profile not found.");
+
+}
+
+}catch(error){
+
+console.log(error);
+alert(error.message);
+
+}
+
+});
+
+window.logout = async function(){
+
+await signOut(auth);
+
+window.location.href="login.html";
+
+}
+
+</script>
+</body>
+</html>
