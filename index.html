@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EduMusic AI</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script defer src="app.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>EduMusic AI</h1>
+
+<p>Create Educational Songs with AI</p>
+
+<div class="card">
+
+<input
+id="topic"
+type="text"
+placeholder="Enter Topic e.g Photosynthesis">
+
+<select id="style">
+
+<option>Afrobeats</option>
+<option>Hip Hop</option>
+<option>Pop</option>
+<option>Gospel</option>
+<option>Rap</option>
+
+</select>
+
+<button id="generateSong">
+
+Generate Song
+
+</button>
+
+</div>
+
+<div class="loading" id="loading">
+
+Generating Song...
+
+</div>
+
+<div class="result">
+
+<h2>Lyrics</h2>
+
+<pre id="lyrics">
+
+Nothing yet...
+
+</pre>
+
+<h2>Audio</h2>
+
+<audio id="player" controls></audio>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
