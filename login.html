@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edumuvi Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef4ff;
+}
+
+header{
+background:#0b5ed7;
+color:white;
+padding:20px;
+text-align:center;
+font-size:32px;
+font-weight:bold;
+}
+
+.container{
+
+width:90%;
+max-width:450px;
+margin:40px auto;
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.2);
+
+}
+
+h2{
+
+text-align:center;
+margin-bottom:20px;
+
+}
+
+input{
+
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+
+}
+
+button{
+
+width:100%;
+padding:15px;
+background:#0b5ed7;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#084298;
+
+}
+
+p{
+
+text-align:center;
+margin-top:20px;
+
+}
+
+a{
+
+text-decoration:none;
+color:#0b5ed7;
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+EDUMUVI
+
+</header>
+
+<div class="container">
+
+<h2>Student Login</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+
+Login
+
+</button>
+
+<p>
+
+Don't have an account?
+
+<a href="register.html">
+
+Register
+
+</a>
+
+</p>
+
+</div>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCbLqH80ErVa474ToHzL7mPNXHbgTgpTNs",
+
+authDomain:"edumuvi-ec332.firebaseapp.com",
+
+projectId:"edumuvi-ec332",
+
+storageBucket:"edumuvi-ec332.firebasestorage.app",
+
+messagingSenderId:"509806032551",
+
+appId:"1:509806032551:web:96695c8deae4d1311b8d82"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+window.login=async function(){
+
+const email=document.getElementById("email").value.trim();
+
+const password=document.getElementById("password").value;
+
+if(email==""||password==""){
+
+alert("Please enter your email and password.");
+
+return;
+
+}
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+alert("Login Successful!");
+
+window.location.href="dashboard.html";
+
+}catch(error){
+
+console.log(error);
+
+if(error.code=="auth/invalid-credential"){
+
+alert("Incorrect email or password.");
+
+}else{
+
+alert(error.message);
+
+}
+
+}
+
+};
+
+</script>
+</body>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edumuvi Registration</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef4ff;
+}
+
+header{
+background:#0b5ed7;
+color:white;
+text-align:center;
+padding:20px;
+font-size:32px;
+font-weight:bold;
+}
+
+.container{
+width:90%;
+max-width:500px;
+margin:25px auto;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+input,select{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#0b5ed7;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#084298;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+EDUMUVI
+</header>
+
+<div class="container">
+
+<h2>Student Registration</h2>
+
+<input
+type="text"
+id="fullname"
+placeholder="Full Name">
+
+<input
+type="text"
+id="school"
+placeholder="School Name">
+
+<select id="level">
+
+<option value="">Select Class</option>
+
+<option>JSS1</option>
+<option>JSS2</option>
+<option>JSS3</option>
+
+<option>SS1</option>
+<option>SS2</option>
+<option>SS3</option>
+
+</select>
+
+<select id="department">
+
+<option value="">Select Department</option>
+
+<option>Science</option>
+<option>Commercial</option>
+<option>Arts</option>
+
+</select>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address">
+
+<input
+type="password"
+id="password"
+placeholder="Create Password">
+
+<button onclick="register()">
+Register
+</button>
+
+<p style="text-align:center;margin-top:20px;">
+Already have an account?
+
+<a href="login.html">
+Login
+</a>
+
+</p>
+
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCbLqH80ErVa474ToHzL7mPNXHbgTgpTNs",
+  authDomain: "edumuvi-ec332.firebaseapp.com",
+  projectId: "edumuvi-ec332",
+  storageBucket: "edumuvi-ec332.firebasestorage.app",
+  messagingSenderId: "509806032551",
+  appId: "1:509806032551:web:96695c8deae4d1311b8d82"
+};
+
+
+
+// Hide Department for JSS
+const level = document.getElementById("level");
+const department = document.getElementById("department");
+
+level.addEventListener("change", () => {
+  if (
+    level.value === "JSS1" ||
+    level.value === "JSS2" ||
+    level.value === "JSS3"
+  ) {
+    department.style.display = "none";
+  } else {
+    department.style.display = "block";
+  }
+});
+
+// Registration Function
+window.register = async function () {
+
+  const fullname = document.getElementById("fullname").value.trim();
+  const school = document.getElementById("school").value.trim();
+  const levelValue = level.value;
+  const departmentValue =
+    department.style.display === "none"
+      ? ""
+      : department.value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (
+    fullname === "" ||
+    school === "" ||
+    levelValue === "" ||
+    email === "" ||
+    password === ""
+  ) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+  try {
+
+    const userCredential =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    await setDoc(
+      doc(db, "students", userCredential.user.uid),
+      {
+        fullname: fullname,
+        school: school,
+        level: levelValue,
+        department: departmentValue,
+        email: email,
+        createdAt: new Date().toISOString()
+      }
+    );
+
+    alert("Registration Successful!");
+    window.location.href = "intro.html";
+
+  } catch (error) {
+
+    console.error(error);
+
+    if (error.code === "permission-denied") {
+      alert("Firestore permission denied. Check your Firestore Rules.");
+    } else if (error.code === "auth/email-already-in-use") {
+      alert("This email is already registered.");
+    } else if (error.code === "auth/invalid-email") {
+      alert("Invalid email address.");
+    } else if (error.code === "auth/weak-password") {
+      alert("Password must be at least 6 characters.");
+    } else {
+      alert("Registration Failed:\n\n" + error.message);
+    }
+
+  }
+
+};
+</script>
+</body>
+</html>

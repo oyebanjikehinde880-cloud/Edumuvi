@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edumuvi - Topics</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+margin:0;
+}
+
+header{
+background:#0f4c81;
+color:white;
+padding:18px;
+text-align:center;
+font-size:25px;
+font-weight:bold;
+}
+
+h2{
+text-align:center;
+color:#0f4c81;
+margin-top:20px;
+}
+
+.container{
+width:90%;
+max-width:500px;
+margin:auto;
+padding-bottom:20px;
+}
+
+.topic{
+background:white;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.2);
+cursor:pointer;
+font-size:18px;
+transition:.3s;
+}
+
+.topic:hover{
+background:#0f4c81;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>Choose Topic</header>
+
+<h2 id="subjectName"></h2>
+
+<div class="container" id="topics"></div>
+
+<script>
+
+let subject=localStorage.getItem("subject");
+
+document.getElementById("subjectName").innerHTML=subject;
+
+let data={
+
+"Mathematics":[
+"Number Base",
+"Fractions",
+"Decimals",
+"Percentages",
+"Ratio",
+"Simple Equations",
+"Graphs",
+"Geometry",
+"Mensuration",
+"Statistics",
+"Probability",
+"Trigonometry"
+],
+
+"English Language":[
+"Parts of Speech",
+"Tenses",
+"Sentence Structure",
+"Comprehension",
+"Summary Writing",
+"Essay Writing",
+"Direct and Indirect Speech",
+"Vocabulary Development",
+"Oral English",
+"Figures of Speech"
+],
+
+"Basic Science":[
+"Living Things",
+"Non-Living Things",
+"Cells",
+"Human Body",
+"Reproduction",
+"Nutrition",
+"Environment",
+"Energy",
+"Force",
+"Earth and Space"
+],
+
+"Basic Technology":[
+"Woodwork",
+"Metalwork",
+"Technical Drawing",
+"Building Construction",
+"Electrical Tools",
+"Simple Machines",
+"Materials Processing",
+"Safety"
+],
+
+"Physics":[
+"Measurements",
+"Scalars and Vectors",
+"Motion",
+"Force",
+"Work",
+"Energy",
+"Power",
+"Pressure",
+"Heat",
+"Waves",
+"Light",
+"Sound",
+"Electricity",
+"Magnetism"
+],
+
+"Chemistry":[
+"Introduction to Chemistry",
+"Matter",
+"Atoms",
+"Elements",
+"Compounds",
+"Mixtures",
+"Chemical Reactions",
+"Acids",
+"Bases",
+"Salts",
+"Periodic Table",
+"Electrolysis",
+"Organic Chemistry"
+],
+
+"Biology":[
+"Characteristics of Living Things",
+"Classification of Living Things",
+"Cells",
+"Tissues",
+"Nutrition",
+"Respiration",
+"Excretion",
+"Ecology",
+"Genetics",
+"Evolution",
+"Human Reproduction",
+"Plant Reproduction"
+]
+
+};
+
+let list=data[subject]||["Topics will be added soon"];
+
+let html="";
+
+for(let i=0;i<list.length;i++){
+
+html+=`
+<div class="topic" onclick="openLesson('${list[i]}')">
+${list[i]}
+</div>
+`;
+
+}
+
+document.getElementById("topics").innerHTML=html;
+
+function openLesson(topic){
+
+localStorage.setItem("topic",topic);
+
+window.location="learn.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edumuvi - Subjects</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f2f2f2;
+    margin:0;
+}
+
+header{
+    background:#0f4c81;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:24px;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    margin:20px auto;
+}
+
+.subject{
+    background:white;
+    padding:18px;
+    margin:12px 0;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+    font-size:18px;
+    transition:.3s;
+}
+
+.subject:hover{
+    background:#0f4c81;
+    color:white;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>Select Your Subject</header>
+
+<div class="container" id="subjects"></div>
+
+<script>
+
+let studentClass = localStorage.getItem("studentClass");
+let department = localStorage.getItem("department");
+
+let list=[];
+
+if(studentClass=="JSS1" || studentClass=="JSS2" || studentClass=="JSS3"){
+
+list=[
+"English Language",
+"Mathematics",
+"Basic Science",
+"Basic Technology",
+"Social Studies",
+"Civic Education",
+"Agricultural Science",
+"Computer Studies",
+"Business Studies",
+"Cultural and Creative Arts",
+"Physical and Health Education"
+];
+
+}
+
+else if(department=="Science"){
+
+list=[
+"English Language",
+"Mathematics",
+"Physics",
+"Chemistry",
+"Biology",
+"Further Mathematics",
+"Agricultural Science",
+"Computer Science",
+"Civic Education"
+];
+
+}
+
+else if(department=="Commercial"){
+
+list=[
+"English Language",
+"Mathematics",
+"Economics",
+"Commerce",
+"Financial Accounting",
+"Office Practice",
+"Marketing",
+"Civic Education"
+];
+
+}
+
+else if(department=="Arts"){
+
+list=[
+"English Language",
+"Literature in English",
+"Government",
+"History",
+"CRS",
+"IRS",
+"Civic Education",
+"Mathematics"
+];
+
+}
+
+let html="";
+
+for(let i=0;i<list.length;i++){
+
+html += `
+<div class="subject" onclick="openSubject('${list[i]}')">
+${list[i]}
+</div>
+`;
+
+}
+
+document.getElementById("subjects").innerHTML=html;
+
+function openSubject(subject){
+
+localStorage.setItem("subject",subject);
+
+window.location="topics.html";
+
+}
+
+</script>
+
+</body>
+</html>

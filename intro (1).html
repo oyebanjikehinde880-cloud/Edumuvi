@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Edumuvi</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f4c81,#1abc9c);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+width:90%;
+max-width:500px;
+background:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+h1{
+color:#0f4c81;
+margin-bottom:15px;
+}
+
+h2{
+margin-bottom:20px;
+color:#333;
+}
+
+p{
+font-size:17px;
+line-height:1.7;
+color:#555;
+margin-bottom:20px;
+}
+
+button{
+width:100%;
+padding:15px;
+font-size:18px;
+background:#0f4c81;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+background:#08345c;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Welcome</h1>
+
+<h2 id="studentName"></h2>
+
+<p>
+
+<b>Edumuvi</b> is a learning platform that makes studying fun.
+
+You can learn using:
+
+📖 Notes
+
+🎵 Music
+
+🎬 Educational Movies
+
+After learning, you can take quizzes, monitor your progress and improve your performance.
+
+</p>
+
+<button onclick="continueApp()">
+Start Learning
+</button>
+
+</div>
+
+<script>
+
+let name=localStorage.getItem("studentName");
+
+if(name==null){
+
+window.location="register.html";
+
+}
+
+document.getElementById("studentName").innerHTML="Hello, "+name+"!";
+
+function continueApp(){
+
+window.location="dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>

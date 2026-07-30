@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edumuvi Quiz</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f4f4;
+margin:0;
+}
+
+header{
+background:#0f4c81;
+color:white;
+padding:18px;
+text-align:center;
+font-size:24px;
+}
+
+.container{
+width:90%;
+max-width:500px;
+margin:20px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+background:#0f4c81;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>Quiz</header>
+
+<div class="container">
+
+<h3>1. Which subject are you studying?</h3>
+
+<input type="radio" name="q1" value="correct">The Selected Subject<br><br>
+
+<input type="radio" name="q1">Another Subject<br><br>
+
+<input type="radio" name="q1">Another Subject<br><br>
+
+<input type="radio" name="q1">Another Subject
+
+<button onclick="finish()">Submit Quiz</button>
+
+</div>
+
+<script>
+
+function finish(){
+
+let answer=document.querySelector('input[name="q1"]:checked');
+
+if(answer==null){
+
+alert("Answer the question first.");
+
+return;
+
+}
+
+let score=0;
+
+if(answer.value=="correct"){
+
+score=100;
+
+}
+
+localStorage.setItem("score",score);
+
+window.location="score.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
+

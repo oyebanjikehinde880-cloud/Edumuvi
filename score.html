@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edumuvi - Score</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+}
+
+header{
+    background:#0f4c81;
+    color:white;
+    text-align:center;
+    padding:18px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.container{
+    width:90%;
+    max-width:500px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
+    text-align:center;
+}
+
+h2{
+    color:#0f4c81;
+}
+
+#score{
+    font-size:50px;
+    font-weight:bold;
+    color:green;
+    margin:20px 0;
+}
+
+#message{
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.progress{
+    background:#ddd;
+    height:25px;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.bar{
+    height:100%;
+    width:0%;
+    background:#0f4c81;
+    transition:1s;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    background:#0f4c81;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#08345c;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>Quiz Result</header>
+
+<div class="container">
+
+<h2>Congratulations!</h2>
+
+<div id="score">0%</div>
+
+<div id="message"></div>
+
+<h3>Your Progress</h3>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<button onclick="studyAgain()">
+📚 Study Another Topic
+</button>
+
+<button onclick="dashboard()">
+🏠 Back to Dashboard
+</button>
+
+</div>
+
+<script>
+
+let score = Number(localStorage.getItem("score")) || 0;
+
+document.getElementById("score").innerHTML = score + "%";
+
+document.getElementById("bar").style.width = score + "%";
+
+if(score >= 70){
+
+document.getElementById("message").innerHTML =
+"🎉 Excellent! You passed this lesson.";
+
+}else if(score >= 50){
+
+document.getElementById("message").innerHTML =
+"🙂 Good effort. Keep practising.";
+
+}else{
+
+document.getElementById("message").innerHTML =
+"📖 You need to study this topic again.";
+
+}
+
+localStorage.setItem("progress",score);
+
+function studyAgain(){
+
+window.location="subjects.html";
+
+}
+
+function dashboard(){
+
+window.location="dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>1
